@@ -26,6 +26,15 @@ black>=22.1.0
 pylint>=2.12.2
 
 # ============================================
+# RAG SYSTEM DEPENDENCIES
+# ============================================
+lancedb>=0.3.0
+sentence-transformers>=2.2.0
+langchain>=0.1.0
+groq>=0.4.0
+python-dotenv>=1.0.0
+
+# ============================================
 # IMPORTANT NOTES
 # ============================================
 # This requirements.txt is for TESTING the refactored service layer only.
@@ -34,3 +43,9 @@ pylint>=2.12.2
 # - Understand the service layer pattern
 # - Test Python code syntax and imports
 # - Run static analysis and code quality checks
+# 
+# RAG SYSTEM:
+# - LanceDB: Free, local vector database
+# - Sentence-Transformers: Free, local embeddings
+# - Groq API: Fast inference (requires free API key from console.groq.com)
+# - Configure API key in .env file

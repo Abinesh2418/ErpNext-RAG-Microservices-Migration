@@ -115,6 +115,70 @@ SERVICE LAYER REFACTORING - TEST SUITE
 🎉 ALL TESTS PASSED!
 ```
 
+---
+
+## 🤖 RAG System - AI-Powered Code Query
+
+Query your refactored codebase with AI using LanceDB + Groq!
+
+### Quick Setup
+
+```bash
+# 1. Install RAG dependencies (already in requirements.txt)
+pip install -r requirements.txt
+
+# 2. Get free Groq API key
+# Visit: https://console.groq.com/keys
+
+# 3. Configure API key in .env file
+GROQ_API_KEY=your_actual_groq_api_key_here
+
+# 4. Run the RAG system
+cd rag_system
+python rag_system.py
+```
+
+### What Gets Indexed?
+
+The RAG system automatically indexes:
+- 📚 **Documentation** (`rag_system/documents/`) - 4 comprehensive guides
+- 💻 **Source Code** (`accounts/services/`) - Service layer implementation
+- 📝 **Project Docs** - README, TESTING, INSTALLATION guides
+- 🧪 **Tests** - test_refactoring.py
+
+### Example Questions
+
+- "What is the GeneralLedgerService and what does it do?"
+- "What are the main advantages of this refactoring?"
+- "How does the merge_similar_entries function work?"
+- "Explain the backward compatibility approach"
+- "What tests are included and what do they verify?"
+- "How does cost center distribution work?"
+- "Show me how to test the GL processing"
+
+### Architecture
+
+```
+User Question → Sentence Transformer → LanceDB → Groq LLM → AI Answer
+                    (Local)            (Local)    (Cloud)
+```
+
+### Features
+
+✅ **100% Free Stack** - LanceDB (local) + Sentence Transformers (local) + Groq (free tier)
+✅ **Fast** - 1-2 second response time
+✅ **Private** - Embeddings run locally on your machine
+✅ **Context-Aware** - Answers from YOUR actual codebase
+✅ **Source Citations** - Shows which files were used
+
+### RAG Documentation
+
+Comprehensive documentation available in `rag_system/documents/`:
+- [General Ledger Overview](rag_system/documents/general_ledger_overview.md) - Complete GL system guide
+- [Service Layer Architecture](rag_system/documents/service_layer_architecture.md) - Refactoring details
+- [Testing Guide](rag_system/documents/testing_guide.md) - Testing strategies
+- [API Reference](rag_system/documents/api_reference.md) - Complete API docs
+
 ## 📬 Contact
 
 For any queries or suggestions, feel free to reach out:
