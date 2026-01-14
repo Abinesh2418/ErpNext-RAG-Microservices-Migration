@@ -2,9 +2,11 @@
 
 ## 🎯 Project Overview
 
-This project demonstrates **refactoring of the ERPNext accounts module** by introducing a **Service Layer**. The goal is to improve code organization, maintainability, and prepare the codebase for future modernization by extracting business logic into a dedicated service layer.
+This project demonstrates **refactoring of the ERPNext accounts module** by introducing a **Service Layer** and an **AI-powered RAG (Retrieval-Augmented Generation) system** for intelligent code documentation. The goal is to improve code organization, maintainability, and prepare the codebase for future modernization by extracting business logic into a dedicated service layer, while making the codebase instantly queryable through natural language AI queries.
 
-**Key Highlight**: ✅ **NO behavior changes** - All functionality works exactly as before!
+**Key Highlights**: 
+- ✅ **NO behavior changes** - All functionality works exactly as before!
+- 🤖 **AI-Powered Documentation** - Query codebase using natural language with RAG system
 
 ---
 
@@ -26,6 +28,12 @@ This project demonstrates **refactoring of the ERPNext accounts module** by intr
    - Created automated test suite (`test_refactoring.py`)
    - 4 test cases covering all scenarios
    - All tests pass successfully
+
+4. **AI-Powered RAG System**
+   - Implemented Retrieval-Augmented Generation using LanceDB + Groq
+   - Created 4 comprehensive documentation files (1,650+ lines)
+   - Automatic indexing of code, docs, and tests into 135+ semantic chunks
+   - Natural language query interface for instant code documentation access
 
 ### Advantages Achieved
 
@@ -127,9 +135,6 @@ Query your refactored codebase with AI using LanceDB + Groq!
 # 1. Install RAG dependencies (already in requirements.txt)
 pip install -r requirements.txt
 
-# 2. Get free Groq API key
-# Visit: https://console.groq.com/keys
-
 # 3. Configure API key in .env file
 GROQ_API_KEY=your_actual_groq_api_key_here
 
@@ -143,7 +148,7 @@ python rag_system.py
 The RAG system automatically indexes:
 - 📚 **Documentation** (`rag_system/documents/`) - 4 comprehensive guides
 - 💻 **Source Code** (`accounts/services/`) - Service layer implementation
-- 📝 **Project Docs** - README, TESTING, INSTALLATION guides
+- 📝 **Project Docs** - README guides
 - 🧪 **Tests** - test_refactoring.py
 
 ### Example Questions
@@ -160,12 +165,11 @@ The RAG system automatically indexes:
 
 ```
 User Question → Sentence Transformer → LanceDB → Groq LLM → AI Answer
-                    (Local)            (Local)    (Cloud)
 ```
 
 ### Features
 
-✅ **100% Free Stack** - LanceDB (local) + Sentence Transformers (local) + Groq (free tier)
+✅ **100% Free Stack** - LanceDB + Sentence Transformers + Groq (free tier)
 ✅ **Fast** - 1-2 second response time
 ✅ **Private** - Embeddings run locally on your machine
 ✅ **Context-Aware** - Answers from YOUR actual codebase
