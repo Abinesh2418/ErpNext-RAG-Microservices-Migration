@@ -1,0 +1,36 @@
+# ERPNext Accounts Module - Service Layer Refactoring
+# Essential Python Dependencies for Testing & Development
+
+# ============================================
+# DATA PROCESSING & UTILITIES
+# ============================================
+pandas>=1.3.5
+python-dateutil>=2.8.2
+
+# ============================================
+# TESTING FRAMEWORK
+# ============================================
+pytest>=7.0.1
+pytest-cov>=3.0.0
+unittest-xml-reporting>=3.2.0
+
+# ============================================
+# DEVELOPMENT TOOLS
+# ============================================
+ipython>=8.0.1
+
+# ============================================
+# CODE QUALITY (Optional)
+# ============================================
+black>=22.1.0
+pylint>=2.12.2
+
+# ============================================
+# IMPORTANT NOTES
+# ============================================
+# This requirements.txt is for TESTING the refactored service layer only.
+# FOR THIS PROJECT:
+# - Review the refactored code structure
+# - Understand the service layer pattern
+# - Test Python code syntax and imports
+# - Run static analysis and code quality checks
