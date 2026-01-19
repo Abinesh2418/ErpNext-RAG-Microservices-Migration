@@ -1,6 +1,3 @@
-# ERPNext Accounts Module - Service Layer Refactoring
-# Essential Python Dependencies for Testing & Development
-
 # ============================================
 # DATA PROCESSING & UTILITIES
 # ============================================
@@ -28,24 +25,36 @@ pylint>=2.12.2
 # ============================================
 # RAG SYSTEM DEPENDENCIES
 # ============================================
+# Vector Database & Embeddings
 lancedb>=0.3.0
 sentence-transformers>=2.2.0
-langchain>=0.1.0
+transformers>=4.30.0
+
+# LLM Integration
 groq>=0.4.0
+
+# Text Processing & Document Loading
+langchain>=0.1.0
+langchain-text-splitters>=0.0.1
+langchain-community>=0.0.20
+
+# Environment & Configuration
 python-dotenv>=1.0.0
 
+# Additional Dependencies
+numpy>=1.24.0
+pypdf>=3.0.0                    
+tiktoken>=0.5.0                 
+
 # ============================================
-# IMPORTANT NOTES
+# VS CODE EXTENSION DEPENDENCIES
 # ============================================
-# This requirements.txt is for TESTING the refactored service layer only.
-# FOR THIS PROJECT:
-# - Review the refactored code structure
-# - Understand the service layer pattern
-# - Test Python code syntax and imports
-# - Run static analysis and code quality checks
-# 
-# RAG SYSTEM:
-# - LanceDB: Free, local vector database
-# - Sentence-Transformers: Free, local embeddings
+# Note: VS Code extension uses Node.js (JavaScript)
+# Python dependencies above are sufficient for the RAG system
+# Node.js packages are managed in vscode-rag-extension/package.json
+
+# RAG SYSTEM SETUP:
+# - LanceDB: Free, local vector database (runs on your machine)
+# - Sentence-Transformers: Free, local embeddings (no API needed)
 # - Groq API: Fast inference (requires free API key from console.groq.com)
-# - Configure API key in .env file
+# - Configure API key in .env file: GROQ_API_KEY=your_key_here

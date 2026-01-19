@@ -43,3 +43,9 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+
+# VS Code Extension
+vscode-rag-extension/node_modules/
+vscode-rag-extension/*.vsix
+vscode-rag-extension/.vscode-test/
+vscode-rag-extension/package-lock.json

@@ -1,0 +1,164 @@
+{
+  "name": "erpnext-rag-assistant",
+  "displayName": "ERPNext RAG Assistant",
+  "description": "AI-powered code assistant for ERPNext refactoring with RAG system integration",
+  "version": "1.0.0",
+  "publisher": "pearl-thoughts",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "AI",
+    "Machine Learning",
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "erpnext",
+    "rag",
+    "ai",
+    "code-assistant",
+    "refactoring"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "erpnext-rag.openChat",
+        "title": "ERPNext RAG: Open Chat",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "erpnext-rag.explainCode",
+        "title": "ERPNext RAG: Explain Selected Code"
+      },
+      {
+        "command": "erpnext-rag.indexWorkspace",
+        "title": "ERPNext RAG: Re-index Workspace"
+      },
+      {
+        "command": "erpnext-rag.clearHistory",
+        "title": "ERPNext RAG: Clear Chat History"
+      },
+      {
+        "command": "erpnext-rag.configureApiKey",
+        "title": "ERPNext RAG: Configure Groq API Key"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "erpnext-rag-container",
+          "title": "ERPNext RAG",
+          "icon": "$(hubot)"
+        }
+      ]
+    },
+    "views": {
+      "erpnext-rag-container": [
+        {
+          "id": "erpnext-rag-chat",
+          "name": "Chat Assistant",
+          "type": "webview"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "erpnext-rag.explainCode",
+          "when": "editorHasSelection",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "erpnext-rag.clearHistory",
+          "when": "view == erpnext-rag-chat",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "erpnext-rag.openChat",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r"
+      },
+      {
+        "command": "erpnext-rag.explainCode",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "editorHasSelection"
+      }
+    ],
+    "configuration": {
+      "title": "ERPNext RAG Assistant",
+      "properties": {
+        "erpnextRag.groqApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Groq API key for LLM responses",
+          "order": 1
+        },
+        "erpnextRag.groqModel": {
+          "type": "string",
+          "default": "llama-3.3-70b-versatile",
+          "description": "Groq model to use",
+          "enum": [
+            "llama-3.3-70b-versatile",
+            "llama-3.1-70b-versatile",
+            "mixtral-8x7b-32768"
+          ],
+          "order": 2
+        },
+        "erpnextRag.embeddingModel": {
+          "type": "string",
+          "default": "all-MiniLM-L6-v2",
+          "description": "Sentence transformer model for embeddings",
+          "order": 3
+        },
+        "erpnextRag.pythonPath": {
+          "type": "string",
+          "default": "python",
+          "description": "Path to Python executable",
+          "order": 4
+        },
+        "erpnextRag.autoIndex": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically re-index on file changes",
+          "order": 5
+        },
+        "erpnextRag.maxResults": {
+          "type": "number",
+          "default": 5,
+          "description": "Maximum number of context chunks to retrieve",
+          "minimum": 1,
+          "maximum": 10,
+          "order": 6
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js",
+    "install-python-deps": "pip install -r ../requirements.txt"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.0",
+    "@types/node": "^18.x",
+    "eslint": "^8.50.0"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-repo/erpnext-refactoring"
+  },
+  "license": "MIT"
+}
