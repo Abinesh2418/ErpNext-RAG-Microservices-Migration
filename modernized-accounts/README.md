@@ -260,12 +260,6 @@ def handle_invoice_created(invoice_data):
     # Do work here
 ```
 
-### Asynchronous Processing
-- Invoice creation completes quickly (returns immediately)
-- Ledger updates happen independently
-- Tax calculations happen independently
-- All services process in parallel (conceptually)
-
 ## 🔮 Future Enhancements
 
 ### Production-Ready Implementation
@@ -345,28 +339,12 @@ This prototype focuses on **architecture clarity** and is NOT production-ready:
 | API | Direct imports | REST/gRPC APIs |
 | Deployment | Direct Python | Docker + Kubernetes |
 
-## 🎯 Learning Outcomes
+## 📬 Contact
 
-After studying this prototype, you'll understand:
+For any queries or suggestions, feel free to reach out:
 
-1. ✓ How to break down a monolithic system into microservices
-2. ✓ Event-driven architecture patterns
-3. ✓ Publish-Subscribe messaging
-4. ✓ Async communication benefits
-5. ✓ Service decoupling strategies
-6. ✓ Event bus design patterns
-7. ✓ How to extract core business logic
+- 🏆 **LeetCode:** [leetcode.com/u/abinesh_06](https://leetcode.com/u/abinesh_06/)
+- 📧 **Email:** abineshbalasubramaniyam@gmail.com
+- 💼 **LinkedIn:** [linkedin.com/in/abiineshh](https://www.linkedin.com/in/abiineshh/)
+- 🐙 **GitHub:** [github.com/Abinesh2418](https://github.com/Abinesh2418)
 
-## 📞 Support
-
-For questions about specific services, refer to their individual README files:
-- Questions about invoices? → [invoice-service/README.md](invoice-service/README.md)
-- Questions about ledger? → [ledger-service/README.md](ledger-service/README.md)
-- Questions about taxes? → [tax-service/README.md](tax-service/README.md)
-- Questions about events? → [event_bus/README.md](event_bus/README.md)
-
----
-
-**Created**: January 2026  
-**Purpose**: Prototype for AI-Assisted ERP Migration  
-**Status**: ✓ Functional Prototype (Not for Production Use)
