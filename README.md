@@ -2,12 +2,13 @@
 
 ## 🎯 Project Overview
 
-This project demonstrates **comprehensive refactoring and modernization of the ERPNext accounts module** through four major features:
+This project demonstrates **comprehensive refactoring and modernization of the ERPNext accounts module** through five major features:
 
 1. **Service Layer Architecture** - Extracted business logic into dedicated service classes
 2. **AI-Powered RAG System** - Intelligent code documentation using LanceDB + Groq
 3. **Microservices Architecture** - Event-driven design with invoice, ledger, and tax services
 4. **VS Code Extension** - IDE-integrated RAG assistant for seamless code querying
+5. **AI-Modernization System** - Full-stack application to convert monoliths to microservices using AI
 
 The goal is to improve code organization, maintainability, and prepare the codebase for future modernization while making it instantly queryable through natural language AI.
 
@@ -16,6 +17,7 @@ The goal is to improve code organization, maintainability, and prepare the codeb
 - 🤖 **AI-Powered Documentation** - Query codebase using natural language with RAG system
 - 🔌 **VS Code Integration** - RAG assistant directly in your IDE
 - 🚀 **Microservices Ready** - Event-driven architecture demonstration
+- 🏗️ **AI Modernization Tool** - Automated monolith-to-microservices conversion
 
 ---
 
@@ -52,6 +54,15 @@ The goal is to improve code organization, maintainability, and prepare the codeb
 - Configurable settings (API keys, models, Python path)
 - Production-ready with 1,700+ lines of JavaScript code
 
+#### **Feature 5: AI-Modernization System**
+- Full-stack application with FastAPI backend + React frontend
+- 12-step pipeline: Upload → Scan → Dependency → AI Context → Architecture → User Input → Infrastructure → Conversion → Validation → Output → Run → Simulate
+- AI-powered architecture design using Groq (llama-3.3-70b-versatile)
+- AST-based code analysis for dependency graphs
+- Event-driven with Apache Kafka integration
+- Docker & Kubernetes deployment configs generation
+- Automatic microservices code conversion
+
 
 ### Future Ready
 
@@ -82,8 +93,26 @@ Erpnext-Refactoring/
 ├── vscode-rag-extension/              # ✨ NEW: VS Code Extension
 │   ├── package.json                   # Extension manifest
 │   ├── extension.js                   # Main extension code
-│   ├── src/                           # Extension source files
-│   │   ├── pythonBridge.js            # Python communication
+│   AI-Modernization/                  # ✨ NEW: AI Modernization System
+│   ├── backend/                       # FastAPI backend (11 routers, 7 services)
+│   │   ├── main.py                    # FastAPI application
+│   │   ├── config.py                  # Configuration management
+│   │   ├── routers/                   # API endpoints for 12 steps
+│   │   └── services/                  # Business logic services
+│   ├── frontend/                      # React + TypeScript UI
+│   │   ├── src/                       # Frontend source files
+│   │   ├── package.json               # Node.js dependencies
+│   │   └── vite.config.ts             # Vite configuration
+│   ├── uploads/                       # Uploaded monolith projects
+│   ├── temp/                          # Temporary processing files
+│   ├── output/                        # Generated microservices
+│   ├── start_backend.py               # Backend startup script
+│   ├── docker-compose.dev.yml         # Kafka setup
+│   └── README.md                      # System documentation
+├── test_refactoring.py                # Automated test suite
+├── requirements.txt                   # Python dependencies
+├── .env                               # Environment configuration
+├── .env.template                      # Environment templaten
 │   │   └── chatPanel.js               # Chat WebView interface
 │   └── README.md                      # Extension documentation
 ├── modernized-accounts/               # ✨ NEW: Microservices feature
@@ -172,6 +201,48 @@ See complete architecture in action with event-driven invoice processing!
 
 ```bash
 # Navigate to extension folder
+### **Feature 5: AI-Modernization System**
+
+**Prerequisites:**
+- Docker Desktop (for Kafka)
+- Node.js 18+ (for frontend)
+
+```bash
+# 1. Start Kafka
+cd AI-Modernization
+docker-compose -f docker-compose.dev.yml up -d
+
+# 2. Start Backend
+python start_backend.py
+# Access: http://localhost:8000
+
+# 3. Start Frontend (in new terminal)
+cd frontend
+npm install
+npm run dev
+# Access: http://localhost:5173
+```
+
+**Using the System:**
+1. Open `http://localhost:5173` in browser
+2. Upload your monolithic codebase (zip file)
+3. Follow the 12-step wizard
+4. AI analyzes and designs microservices architecture
+5. Download generated microservices with Docker configs
+
+**Key Features:**
+- ✅ AST-based dependency analysis
+- ✅ AI-powered architecture design (Groq)
+- ✅ Automatic code conversion
+- ✅ Kafka event-driven setup
+- ✅ Docker & Kubernetes configs
+- ✅ Validation & testing
+
+**Documentation:**
+- [Architecture Guide](AI-Modernization/ARCHITECTURE.md)
+- [API Documentation](AI-Modernization/README.md)
+- [Project Summary](AI-Modernization/PROJECT_SUMMARY.md)
+
 cd vscode-rag-extension
 
 # Install Node.js dependencies

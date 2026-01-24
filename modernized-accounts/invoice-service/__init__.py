@@ -1,3 +1,0 @@
-"""
-Invoice Service Package
-"""

@@ -49,3 +49,22 @@ vscode-rag-extension/node_modules/
 vscode-rag-extension/*.vsix
 vscode-rag-extension/.vscode-test/
 vscode-rag-extension/package-lock.json
+
+# Accounts-Modernization System
+Accounts-Modernization/modern/
+Accounts-Modernization/logs/*.log
+Accounts-Modernization/results/*.txt
+Accounts-Modernization/results/*.jsonl
+Accounts-Modernization/backend/__pycache__/
+Accounts-Modernization/backend/analyzer/__pycache__/
+Accounts-Modernization/backend/converter/__pycache__/
+Accounts-Modernization/backend/utils/__pycache__/
+Accounts-Modernization/tests/__pycache__/
+
+# Go compiled files (from Accounts-Modernization)
+*.exe
+*.dll
+*.dylib
+*.test
+*.out
+go.work

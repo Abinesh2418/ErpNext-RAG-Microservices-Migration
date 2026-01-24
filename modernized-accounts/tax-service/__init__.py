@@ -1,3 +1,0 @@
-"""
-Tax Service Package
-"""

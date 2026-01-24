@@ -34,9 +34,9 @@ transformers>=4.30.0
 groq>=0.4.0
 
 # Text Processing & Document Loading
-langchain>=0.1.0
-langchain-text-splitters>=0.0.1
-langchain-community>=0.0.20
+langchain>=0.3.0
+langchain-text-splitters>=0.3.0
+langchain-community>=0.3.0
 
 # Environment & Configuration
 python-dotenv>=1.0.0
@@ -45,6 +45,29 @@ python-dotenv>=1.0.0
 numpy>=1.24.0
 pypdf>=3.0.0                    
 tiktoken>=0.5.0                 
+
+# ============================================
+# AI-MODERNIZATION SYSTEM DEPENDENCIES
+# ============================================
+# FastAPI and web framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Kafka for event-driven architecture
+kafka-python==2.0.2
+
+# File handling
+aiofiles==23.2.1
+
+# HTTP client
+httpx==0.25.2
+
+# Code analysis
+astroid==3.0.1
+
+# Testing
+pytest-asyncio==0.21.1
 
 # ============================================
 # VS CODE EXTENSION DEPENDENCIES
@@ -58,3 +81,13 @@ tiktoken>=0.5.0
 # - Sentence-Transformers: Free, local embeddings (no API needed)
 # - Groq API: Fast inference (requires free API key from console.groq.com)
 # - Configure API key in .env file: GROQ_API_KEY=your_key_here
+
+# ============================================
+# ACCOUNTS-MODERNIZATION DEPENDENCIES
+# ============================================
+# CLI and code analysis tools (already included above)
+# Additional dependencies:
+# - python-dotenv (already included)
+# - astroid (already included)
+# - groq (already included)
+# - pytest (already included)
