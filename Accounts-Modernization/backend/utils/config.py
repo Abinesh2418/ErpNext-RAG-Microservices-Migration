@@ -46,10 +46,18 @@ class Config:
         self.config = {
             # AI Configuration
             'GROQ_API_KEY': os.getenv('GROQ_API_KEY', ''),
-            'GROQ_MODEL': os.getenv('GROQ_MODEL', 'llama-3.3-70b-versatile'),
-            'EMBEDDING_MODEL': os.getenv('EMBEDDING_MODEL', 'all-MiniLM-L6-v2'),
+            'GROQ_MODEL': os.getenv('GROQ_MODEL'),
+            'EMBEDDING_MODEL': os.getenv('EMBEDDING_MODEL'),
             'MAX_CONTEXT_TOKENS': int(os.getenv('MAX_CONTEXT_TOKENS', '8000')),
             'AI_TEMPERATURE': float(os.getenv('AI_TEMPERATURE', '0.7')),
+            
+            # Groq API Configuration
+            'GROQ_API_KEY': os.getenv('GROQ_API_KEY'),
+            'GROQ_MODEL': os.getenv('GROQ_MODEL'),
+            
+            # Ollama Configuration for embeddings
+            'OLLAMA_BASE_URL': os.getenv('OLLAMA_BASE_URL'),
+            'OLLAMA_EMBED_MODEL': os.getenv('OLLAMA_EMBED_MODEL'),
             
             # Conversion Configuration
             'MAX_FILE_SIZE_MB': int(os.getenv('MAX_FILE_SIZE_MB', '10')),

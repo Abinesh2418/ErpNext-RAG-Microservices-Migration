@@ -2,13 +2,14 @@
 
 ## 🎯 Project Overview
 
-This project demonstrates **comprehensive refactoring and modernization of the ERPNext accounts module** through five major features:
+This project demonstrates **comprehensive refactoring and modernization of the ERPNext accounts module** through six major features:
 
 1. **Service Layer Architecture** - Extracted business logic into dedicated service classes
 2. **AI-Powered RAG System** - Intelligent code documentation using LanceDB + Groq
 3. **Microservices Architecture** - Event-driven design with invoice, ledger, and tax services
 4. **VS Code Extension** - IDE-integrated RAG assistant for seamless code querying
 5. **AI-Modernization System** - Full-stack application to convert monoliths to microservices using AI
+6. **⏱️ Python→Go Conversion with Performance Tracking** - CLI tool with Redis caching, Qdrant semantic search, and real-time timing metrics
 
 The goal is to improve code organization, maintainability, and prepare the codebase for future modernization while making it instantly queryable through natural language AI.
 
@@ -18,6 +19,7 @@ The goal is to improve code organization, maintainability, and prepare the codeb
 - 🔌 **VS Code Integration** - RAG assistant directly in your IDE
 - 🚀 **Microservices Ready** - Event-driven architecture demonstration
 - 🏗️ **AI Modernization Tool** - Automated monolith-to-microservices conversion
+- ⏱️ **Performance Monitoring** - Real-time conversion timing with cache efficiency metrics
 
 ---
 
@@ -57,11 +59,19 @@ The goal is to improve code organization, maintainability, and prepare the codeb
 #### **Feature 5: AI-Modernization System**
 - Full-stack application with FastAPI backend + React frontend
 - 12-step pipeline: Upload → Scan → Dependency → AI Context → Architecture → User Input → Infrastructure → Conversion → Validation → Output → Run → Simulate
-- AI-powered architecture design using Groq (llama-3.3-70b-versatile)
+- AI-powered architecture design using Ollama with local LLMs
 - AST-based code analysis for dependency graphs
 - Event-driven with Apache Kafka integration
 - Docker & Kubernetes deployment configs generation
 - Automatic microservices code conversion
+
+#### **Feature 6: Python→Go Conversion with Performance Tracking**
+- CLI-based conversion using Ollama (qwen3:8b primary, deepseek-coder:6.7b fallback)
+- Redis caching for file hashes, AST, dependencies
+- Qdrant semantic search for context-aware conversion
+- Real-time performance metrics and timing display
+- Incremental, file-by-file conversion
+- Comprehensive testing (unit, integration, functional, QA)
 
 
 ### Future Ready
@@ -226,6 +236,73 @@ npm run dev
 **Using the System:**
 1. Open `http://localhost:5173` in browser
 2. Upload your monolithic codebase (zip file)
+
+---
+
+### **Feature 6: ⏱️ Python→Go Conversion with Performance Tracking**
+
+**Prerequisites:**
+- Redis server (localhost:6379)
+- Qdrant server (localhost:6333)
+- Groq API key
+
+```bash
+# 1. Start Services
+# Redis: redis-server
+# Qdrant: docker run -p 6333:6333 qdrant/qdrant
+
+# 2. Configure
+cd Accounts-Modernization
+cp .env.template .env
+# Edit .env with your GROQ_API_KEY
+
+# 3. Install Dependencies
+pip install redis qdrant-client sentence-transformers
+
+# 4. Convert Python to Go
+python cli\main.py convert "path\to\accounts\party.py"
+```
+
+**Performance Monitoring:**
+- Real-time timing for each file conversion
+- Cache hit/miss tracking
+- Average conversion time metrics
+- Detailed performance report
+
+**Example Output:**
+```
+⚡ Cache MISS: Converting party.py...
+✓ Converted: party.py → party.go (⏱️  4.23s)
+
+⏱️  TIMING SUMMARY:
+   Total Conversion Time: 4.23s
+   Average per File: 4.23s
+   Files Processed: 1
+
+⏱️  Performance:
+   • Total conversion time: 4.23s
+   • Average per file: 4.23s
+   • Cache efficiency: 0.0%
+```
+
+**Testing Generated Go Code:**
+```bash
+cd Accounts-Modernization
+# See GO_TESTING_GUIDE.md for complete testing instructions
+
+# Quick test
+cd modern
+go mod init accounts-modern
+go build ./...
+go vet ./...
+```
+
+**Documentation:**
+- [Accounts-Modernization/README.md](Accounts-Modernization/README.md) - Complete system docs
+- [Accounts-Modernization/GO_TESTING_GUIDE.md](Accounts-Modernization/GO_TESTING_GUIDE.md) - Testing guide
+- [Accounts-Modernization/TIMING_FEATURE.md](Accounts-Modernization/TIMING_FEATURE.md) - Performance tracking details
+
+---
 3. Follow the 12-step wizard
 4. AI analyzes and designs microservices architecture
 5. Download generated microservices with Docker configs

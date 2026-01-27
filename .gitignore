@@ -43,6 +43,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+*.backup
 
 # VS Code Extension
 vscode-rag-extension/node_modules/
@@ -59,7 +60,9 @@ Accounts-Modernization/backend/__pycache__/
 Accounts-Modernization/backend/analyzer/__pycache__/
 Accounts-Modernization/backend/converter/__pycache__/
 Accounts-Modernization/backend/utils/__pycache__/
-Accounts-Modernization/tests/__pycache__/
+Accounts-Modernization/backend/redis/__pycache__/
+Accounts-Modernization/backend/qdrant/__pycache__/
+Accounts-Modernization/cli/__pycache__/
 
 # Go compiled files (from Accounts-Modernization)
 *.exe
@@ -68,3 +71,13 @@ Accounts-Modernization/tests/__pycache__/
 *.test
 *.out
 go.work
+go.sum
+go.mod
+
+# Redis & Qdrant data (if running locally without Docker)
+dump.rdb
+*.rdb
+qdrant_storage/
+
+# System Design file (merged into other docs)
+Accounts-Modernization/SYSTEM_DESIGN.md

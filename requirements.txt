@@ -23,28 +23,25 @@ black>=22.1.0
 pylint>=2.12.2
 
 # ============================================
-# RAG SYSTEM DEPENDENCIES
+# MODERNIZATION SYSTEM DEPENDENCIES
 # ============================================
-# Vector Database & Embeddings
-lancedb>=0.3.0
+# Redis for caching & structure storage
+redis>=5.0.0
+
+# Qdrant for semantic search
+qdrant-client>=1.7.0
+
+# Embeddings
 sentence-transformers>=2.2.0
-transformers>=4.30.0
 
-# LLM Integration
-groq>=0.4.0
-
-# Text Processing & Document Loading
-langchain>=0.3.0
-langchain-text-splitters>=0.3.0
-langchain-community>=0.3.0
+# LLM Integration (Cloud API via requests)
+requests>=2.31.0
 
 # Environment & Configuration
 python-dotenv>=1.0.0
 
 # Additional Dependencies
-numpy>=1.24.0
-pypdf>=3.0.0                    
-tiktoken>=0.5.0                 
+numpy>=1.24.0                 
 
 # ============================================
 # AI-MODERNIZATION SYSTEM DEPENDENCIES
@@ -69,18 +66,12 @@ astroid==3.0.1
 # Testing
 pytest-asyncio==0.21.1
 
-# ============================================
-# VS CODE EXTENSION DEPENDENCIES
-# ============================================
-# Note: VS Code extension uses Node.js (JavaScript)
-# Python dependencies above are sufficient for the RAG system
-# Node.js packages are managed in vscode-rag-extension/package.json
-
-# RAG SYSTEM SETUP:
-# - LanceDB: Free, local vector database (runs on your machine)
+# MODERNIZATION SYSTEM SETUP:
+# - Redis: Local cache for file hashes, AST results, dependency graphs
+# - Qdrant: Semantic index for meaning-based context retrieval
 # - Sentence-Transformers: Free, local embeddings (no API needed)
-# - Groq API: Fast inference (requires free API key from console.groq.com)
-# - Configure API key in .env file: GROQ_API_KEY=your_key_here
+# - Ollama: Local LLM runtime with qwen3:8b and deepseek-coder:6.7b models
+# - Configure in .env file: OLLAMA_BASE_URL, REDIS_HOST, QDRANT_HOST
 
 # ============================================
 # ACCOUNTS-MODERNIZATION DEPENDENCIES
@@ -89,5 +80,5 @@ pytest-asyncio==0.21.1
 # Additional dependencies:
 # - python-dotenv (already included)
 # - astroid (already included)
-# - groq (already included)
+# - ollama (already included)
 # - pytest (already included)

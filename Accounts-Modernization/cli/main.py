@@ -18,6 +18,8 @@ from backend.analyzer.dependency_analyzer import DependencyAnalyzer
 from backend.converter.ai_converter import AIConverter
 from backend.utils.logger import setup_logger
 from backend.utils.config import Config
+from backend.utils.pre_indexer import PreIndexer, DependencyScheduler
+from backend.qdrant import QdrantIndex
 
 
 class AccountsModernizorCLI:
@@ -27,16 +29,20 @@ class AccountsModernizorCLI:
         self.config = Config()
         self.logger = setup_logger('cli', self.config.get('LOG_DIR', 'logs'))
         
-    def convert(self, path: str):
+    def convert(self, path: str, parallel: bool = True, workers: int = 4):
         """
         Convert ERPNext Accounts module code from Python to Go
         
         Args:
             path: Path to file or folder to convert
+            parallel: Enable parallel execution (default: True)
+            workers: Number of parallel workers (default: 4)
         """
         self.logger.info(f"Starting conversion process for: {path}")
+        mode_str = f"PARALLEL MODE ({workers} workers)" if parallel else "SEQUENTIAL MODE"
         print(f"\n{'='*60}")
         print(f"  ACCOUNTS-MODERNIZATION - Python to Go Converter")
+        print(f"  {mode_str}")
         print(f"{'='*60}\n")
         
         # Validate input path
@@ -71,24 +77,72 @@ class AccountsModernizorCLI:
             print(f"   ✓ Analyzed {dependency_results['total_dependencies']} dependencies")
             print(f"   ✓ Dependency log: {dependency_results['log_file']}\n")
             
-            # STEP 3: Prepare context for AI
-            print("📝 STEP 3: Preparing Context for AI Conversion...")
+            # STEP 3: Pre-index files in Qdrant (if parallel mode)
+            if parallel:
+                print("🔍 STEP 3: Pre-Indexing Files into Qdrant...")
+                qdrant_index = QdrantIndex(self.config, self.logger)
+                pre_indexer = PreIndexer(self.config, self.logger, qdrant_index)
+                indexing_stats = pre_indexer.index_all_files(scan_results['files'])
+                print(f"   ✓ Indexed {indexing_stats['indexed_files']} files")
+                print(f"   ✓ Indexed {indexing_stats['indexed_functions']} functions")
+                print(f"   ✓ Indexed {indexing_stats['indexed_classes']} classes")
+                print(f"   ✓ Indexing time: {indexing_stats['elapsed_time']:.2f}s\n")
+                
+                # STEP 4: Build dependency levels
+                print("📊 STEP 4: Building Dependency Levels...")
+                scheduler = DependencyScheduler(self.logger)
+                dependency_levels = scheduler.build_dependency_levels(dependency_results, scan_results['files'])
+                print(f"   ✓ Created {len(dependency_levels)} dependency levels\n")
+            else:
+                print("ℹ️  STEP 3-4: Skipped (sequential mode)\n")
+            
+            # STEP 5: Prepare context for AI
+            step_num = 5 if parallel else 3
+            print(f"📝 STEP {step_num}: Preparing Context for AI Conversion...")
             context = dependency_analyzer.prepare_context(dependency_results)
             print(f"   ✓ Context prepared with {context['file_count']} files\n")
             
-            # STEP 4: AI Conversion
-            print("🤖 STEP 4: Converting Python to Go...")
+            # STEP 6: AI Conversion
+            step_num += 1
+            print(f"🤖 STEP {step_num}: Converting Python to Go...")
             converter = AIConverter(self.config, self.logger)
-            conversion_results = converter.convert(context, scan_results['files'])
+            
+            if parallel:
+                conversion_results = converter.convert_parallel(
+                    context,
+                    scan_results['files'],
+                    dependency_levels,
+                    num_workers=workers
+                )
+            else:
+                conversion_results = converter.convert(context, scan_results['files'])
+            
             print(f"   ✓ Generated Go code in: modern/")
             print(f"   ✓ Conversion report: {conversion_results['report_file']}\n")
             
-            # STEP 5: Summary
+            # STEP 7: Summary
             print("✅ CONVERSION COMPLETED!")
             print(f"\n📊 Summary:")
             print(f"   • Files processed: {scan_results['file_count']}")
             print(f"   • Go modules created: {conversion_results['modules_created']}")
             print(f"   • Warnings: {conversion_results['warnings']}")
+            if parallel:
+                print(f"   • Dependency levels: {conversion_results.get('dependency_levels', 0)}")
+                print(f"   • Workers used: {conversion_results.get('num_workers', 0)}")
+            
+            # Timing information
+            total_time = conversion_results.get('total_conversion_time', 0)
+            avg_time = conversion_results.get('average_conversion_time', 0)
+            throughput = conversion_results['modules_created'] / total_time if total_time > 0 else 0
+            print(f"\n⏱️  Performance:")
+            print(f"   • Total conversion time: {total_time:.2f}s")
+            print(f"   • Average per file: {avg_time:.2f}s")
+            print(f"   • Throughput: {throughput:.2f} files/second")
+            if conversion_results.get('cache_hits', 0) > 0:
+                cache_efficiency = (conversion_results['cache_hits'] / (conversion_results['cache_hits'] + conversion_results['cache_misses']) * 100)
+                print(f"   • Cache efficiency: {cache_efficiency:.1f}%")
+                print(f"   • Cache hits/misses: {conversion_results['cache_hits']}/{conversion_results['cache_misses']}")
+            
             print(f"\n📂 Generated Files:")
             print(f"   • Go code: modern/")
             print(f"   • Logs: logs/")
@@ -138,6 +192,18 @@ Examples:
         type=str,
         help='Path to file or folder to convert'
     )
+    convert_parser.add_argument(
+        '--parallel',
+        action='store_true',
+        default=True,
+        help='Enable parallel conversion with worker pool (default: True)'
+    )
+    convert_parser.add_argument(
+        '--workers',
+        type=int,
+        default=4,
+        help='Number of parallel workers to use (default: 4)'
+    )
     
     # Parse arguments
     args = parser.parse_args()
@@ -150,7 +216,9 @@ Examples:
     cli = AccountsModernizorCLI()
     
     if args.command == 'convert':
-        return cli.convert(args.path)
+        parallel = getattr(args, 'parallel', True)
+        workers = getattr(args, 'workers', 4)
+        return cli.convert(args.path, parallel=parallel, workers=workers)
     
     return 0
 
